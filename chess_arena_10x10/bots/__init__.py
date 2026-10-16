@@ -1,2 +1,2 @@
-"""Bot plugins for the 10x10 arena."""
+"""Bot plugins for the 9x9 arena."""
 

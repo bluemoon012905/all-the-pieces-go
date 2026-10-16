@@ -5,6 +5,7 @@ from typing import Dict, Iterable, List, Optional, Tuple
 
 Coord = Tuple[int, int]
 Color = str
+BOARD_SIZE = 9
 
 
 try:
@@ -21,8 +22,8 @@ except ModuleNotFoundError:
 
 def _validate_coord(value: Coord) -> Coord:
     x, y = value
-    if not (0 <= x <= 9 and 0 <= y <= 9):
-        raise ValueError("coordinates must be between 0 and 9")
+    if not (0 <= x < BOARD_SIZE and 0 <= y < BOARD_SIZE):
+        raise ValueError(f"coordinates must be between 0 and {BOARD_SIZE - 1}")
     return value
 
 
@@ -102,16 +103,16 @@ class Palace:
 
 
 class Board:
-    """10x10 board backed by a coordinate-to-piece dictionary."""
+    """9x9 board backed by a coordinate-to-piece dictionary."""
 
-    width = 10
-    height = 10
+    width = BOARD_SIZE
+    height = BOARD_SIZE
 
     def __init__(self) -> None:
         self.grid: Dict[Coord, "Piece"] = {}
         self.palaces: Dict[Color, Palace] = {
-            "white": Palace(3, 6, 0, 2),
-            "black": Palace(3, 6, 7, 9),
+            "white": Palace(3, 5, 0, 2),
+            "black": Palace(3, 5, 6, 8),
         }
 
     def in_bounds(self, coord: Coord) -> bool:
@@ -156,7 +157,7 @@ class Board:
         if color == "white":
             return y in (0, 1)
         if color == "black":
-            return y in (8, 9)
+            return y in (7, 8)
         raise ValueError(f"unknown color {color}")
 
     def set_palace(self, color: Color, palace: Palace) -> None:

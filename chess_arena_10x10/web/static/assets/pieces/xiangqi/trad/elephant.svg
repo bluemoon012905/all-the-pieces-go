@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -50 400 100">
+  <defs><g id="p"><circle r="48" stroke="#000" stroke-width="3" fill="#fda"/><circle r="43" stroke="currentColor" stroke-width="3" fill="none"/><text y="20" fill="currentColor" font-family="serif" font-size="58" font-weight="700" text-anchor="middle">象</text></g></defs>
+  <g color="#c00"><use href="#p" x="50"/><use href="#p" x="150"/></g><g color="#000"><use href="#p" x="250"/><use href="#p" x="350"/></g>
+</svg>

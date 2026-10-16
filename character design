@@ -1,0 +1,41 @@
+basics: 
+there is a shop at the start, and you can buy pieces with points
+if you lose all your king, you lose. 
+
+Chess: starts with a chess king, and 250 points of material
+no special ability
+
+shogi: starts with a shogi king, and 200 points of material
+speical ability is to be able to capture half of the point cost of the enemy pieces. 
+
+Xiangqi: starts with a xiangqi king, and two guards. 200 points of material
+no special ability
+
+piece cost in shops, you can only buy pieces form your character's game: 
+
+chess shop
+pawn: 10
+knight: 30
+bishop: 33
+rook: 5
+queen: 9
+
+Xianqi shop
+pawn: 10
+advisor: 15
+elephant: 18
+horse: 26 
+cannon: 40
+rook: 50
+
+shogi shop:
+pawn: 10
+lance: 22
+shogi knight: 24
+silver: 32
+gold: 34
+kaku: 55
+hisha: 65 
+
+in a major reward, give the player 200 points of material, and offer three random pieces that the player can pick. the one they pick will be added to the shop as an future option. 
+in a minor reward, give the player 60 points of material, and offer three random pieces the player can pick from. it is not added to the shop

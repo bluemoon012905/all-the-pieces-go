@@ -11,6 +11,8 @@ Coord = Tuple[int, int]
 class Cannon(Piece):
     name = "Cannon"
     code = "C"
+    asset_family = "xiangqi"
+    asset_name = "cannon"
 
     def legal_moves(self, board: "Board", start: Coord) -> List[Coord]:
         sx, sy = start
@@ -36,6 +38,8 @@ class Cannon(Piece):
 class XiangqiKnight(Piece):
     name = "Xiangqi Knight"
     code = "H"
+    asset_family = "xiangqi"
+    asset_name = "horse"
 
     LEGS_AND_DESTS = (
         ((0, 1), (1, 2)),
@@ -62,17 +66,63 @@ class XiangqiKnight(Piece):
 class PalaceKing(King):
     name = "Palace King"
     code = "K"
+    asset_family = "xiangqi"
+    asset_name = "general"
     must_stay_in_palace = True
 
 
 class Servant(Piece):
     name = "Servant"
     code = "S"
+    asset_family = "xiangqi"
+    asset_name = "advisor"
     must_stay_in_palace = True
 
     def legal_moves(self, board: "Board", start: Coord) -> List[Coord]:
         return self.step_moves(board, start, DIAGONAL)
 
 
-from chess_arena_10x10.core.board import Board  # noqa: E402
+class XiangqiElephant(Piece):
+    name = "Xiangqi Elephant"
+    code = "E"
+    asset_family = "xiangqi"
+    asset_name = "elephant"
 
+    def legal_moves(self, board: "Board", start: Coord) -> List[Coord]:
+        sx, sy = start
+        moves = []
+        for dx, dy in ((2, 2), (2, -2), (-2, 2), (-2, -2)):
+            block = (sx + dx // 2, sy + dy // 2)
+            dest = (sx + dx, sy + dy)
+            if not board.in_bounds(block) or not board.is_empty(block):
+                continue
+            if not self._stays_on_own_side(dest):
+                continue
+            if self.can_land_on(board, dest):
+                moves.append(dest)
+        return moves
+
+    def _stays_on_own_side(self, coord: Coord) -> bool:
+        _, y = coord
+        return y <= 4 if self.color == "white" else y >= 5
+
+
+class XiangqiSoldier(Piece):
+    name = "Xiangqi Soldier"
+    code = "D"
+    asset_family = "xiangqi"
+    asset_name = "soldier"
+
+    def legal_moves(self, board: "Board", start: Coord) -> List[Coord]:
+        sx, sy = start
+        deltas = [(0, self.direction)]
+        if self._crossed_river(start):
+            deltas.extend([(1, 0), (-1, 0)])
+        return self.step_moves(board, start, deltas)
+
+    def _crossed_river(self, coord: Coord) -> bool:
+        _, y = coord
+        return y >= 5 if self.color == "white" else y <= 3
+
+
+from chess_arena_10x10.core.board import Board  # noqa: E402

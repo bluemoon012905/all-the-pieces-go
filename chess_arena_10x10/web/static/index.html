@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>All the Pieces Go</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main id="homePage" class="home-page" hidden>
+      <div class="home-header">
+        <p class="eyebrow">All the Pieces Go</p>
+        <h1>Choose your game</h1>
+      <p class="home-intro">Pick a way to play on the shared 9x9 board.</p>
+      </div>
+      <div id="modeCards" class="mode-cards" aria-label="Game modes"></div>
+      <a class="almanac-link" href="/almanac">Browse the piece almanac <span aria-hidden="true">→</span></a>
+    </main>
+
+    <main id="roguePage" class="rogue-page" hidden>
+      <header class="rogue-header">
+        <div>
+          <a class="back-link" href="/">All the Pieces Go</a>
+          <p class="eyebrow">Rogue Run · Encounter Workshop</p>
+          <h1>Design the waves</h1>
+          <p class="home-intro">Set up the enemy board now. Later, each note can become the bot's behavior.</p>
+        </div>
+        <div class="rogue-header-actions">
+          <a class="text-link" href="/rogue">Playtest run</a>
+          <div id="rogueSaveState" class="save-state" aria-live="polite">Saved automatically</div>
+        </div>
+      </header>
+
+      <section class="rogue-layout" aria-label="Rogue wave editor">
+        <div class="rogue-editor-main">
+          <section class="rogue-block character-block">
+            <div>
+              <p class="eyebrow">Your character</p>
+              <h2>Choose a starting faction</h2>
+              <p class="editor-help">This choice will become the player's starting piece set.</p>
+            </div>
+            <div id="characterChoices" class="character-choices" role="radiogroup" aria-label="Player character"></div>
+          </section>
+
+          <section class="rogue-block wave-block">
+            <div class="wave-toolbar">
+              <div>
+                <p class="eyebrow">Encounter sequence</p>
+                <h2>Waves</h2>
+              </div>
+              <button id="addWaveButton" type="button">+ Add wave</button>
+            </div>
+            <div id="waveTabs" class="wave-tabs" role="tablist" aria-label="Enemy waves"></div>
+          </section>
+
+          <section class="rogue-block board-editor-block">
+            <div class="editor-section-heading">
+              <div>
+                <p class="eyebrow">Enemy formation</p>
+                <h2>Place the pieces</h2>
+              </div>
+              <p class="editor-help">Select a piece, then click a square. Right-click a square to remove its piece.</p>
+            </div>
+            <div class="rogue-board-frame">
+              <div id="rogueBoard" class="board rogue-board" role="grid" aria-label="Editable enemy formation"></div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="rogue-sidebar" aria-label="Wave details">
+          <section class="rogue-block wave-details-block">
+            <p class="eyebrow">Wave brief</p>
+            <label class="editor-label">
+              <span>Wave name</span>
+              <input id="waveNameInput" type="text" placeholder="The first test" />
+            </label>
+            <label class="editor-label">
+              <span>Reward after victory</span>
+              <input id="waveRewardInput" type="text" placeholder="Add a reward idea" />
+            </label>
+            <label class="editor-label">
+              <span>Bot behavior note</span>
+              <textarea id="waveNoteInput" rows="7" placeholder="What should this enemy player try to do?"></textarea>
+            </label>
+            <div class="wave-actions">
+              <button id="duplicateWaveButton" type="button">Duplicate wave</button>
+              <button id="deleteWaveButton" type="button" class="danger-button">Delete wave</button>
+            </div>
+          </section>
+
+          <section class="rogue-block palette-block">
+            <div class="editor-section-heading">
+              <div>
+                <p class="eyebrow">Enemy pieces</p>
+                <h2>Piece palette</h2>
+              </div>
+              <button id="eraserButton" type="button" class="tool-button">Eraser</button>
+            </div>
+            <label class="editor-label">
+              <span>Game family</span>
+              <select id="rogueGameFilter">
+                <option value="all">All games</option>
+                <option value="Chess">Chess</option>
+                <option value="Shogi">Shogi</option>
+                <option value="Xiangqi">Xiangqi</option>
+              </select>
+            </label>
+            <input id="roguePieceSearch" class="palette-search" type="search" placeholder="Search enemy pieces" />
+            <div id="roguePiecePalette" class="rogue-piece-palette" aria-label="Enemy piece palette"></div>
+            <p id="selectedToolLabel" class="selected-tool">Select a piece to place.</p>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="roguePlayPage" class="rogue-page rogue-play-page" hidden>
+      <header class="rogue-header">
+        <div>
+          <a class="back-link" href="/">All the Pieces Go</a>
+          <p class="eyebrow">Rogue Run · Playtest</p>
+          <h1 id="roguePlayTitle">Choose your character</h1>
+          <p id="roguePlayIntro" class="home-intro">Pick a faction, shop for pieces, and take on five-action waves.</p>
+        </div>
+        <div class="rogue-header-actions">
+          <a class="text-link" href="/rogue/designer">Wave designer</a>
+          <button id="rogueResetButton" type="button">Reset run</button>
+        </div>
+      </header>
+
+      <section id="rogueCharacterSelect" class="rogue-character-screen" aria-label="Choose a Rogue character"></section>
+
+      <section id="rogueGameScreen" class="rogue-game-layout" hidden aria-label="Rogue game">
+        <div class="rogue-play-main">
+          <div class="rogue-run-strip">
+            <div><span>Character</span><strong id="rogueCharacterName">—</strong></div>
+            <div><span>Wave</span><strong id="rogueWaveName">—</strong></div>
+            <div><span>Actions</span><strong id="rogueMovesLeft">—</strong></div>
+            <div><span>Material</span><strong id="rogueMaterial">—</strong></div>
+          </div>
+          <div class="rogue-play-board-frame">
+            <div id="roguePlayBoard" class="board rogue-board rogue-play-board" role="grid" aria-label="Rogue battle board"></div>
+          </div>
+          <div id="roguePlayHint" class="rogue-play-hint">Select one of your pieces, then select a destination.</div>
+        </div>
+
+        <aside class="rogue-play-sidebar" aria-label="Rogue controls">
+          <section class="rogue-block">
+            <p class="eyebrow">Your ability</p>
+            <p id="rogueAbility" class="ability-copy">—</p>
+          </section>
+          <section class="rogue-block">
+            <div class="editor-section-heading"><div><p class="eyebrow">Shop</p><h2>Buy & deploy</h2></div></div>
+            <p class="editor-help">Buying and dropping a piece uses one action. Click a piece, then click an empty square.</p>
+            <div id="rogueShop" class="rogue-shop"></div>
+          </section>
+          <section class="rogue-block">
+            <p class="eyebrow">Reserve</p>
+            <div id="rogueReserve" class="rogue-reserve"></div>
+            <button id="roguePassButton" type="button">Pass one action</button>
+          </section>
+          <section class="rogue-block">
+            <p class="eyebrow">Captured bank</p>
+            <p class="editor-help">Captured enemies wait here. Select one, then click an empty square to deploy it for one action.</p>
+            <div id="rogueBank" class="rogue-bank"></div>
+          </section>
+          <section class="rogue-block">
+            <p class="eyebrow">Battle log</p>
+            <ol id="rogueBattleLog" class="move-log"></ol>
+          </section>
+        </aside>
+      </section>
+
+      <section id="rogueRewardPanel" class="rogue-reward-panel" hidden aria-live="polite">
+        <p class="eyebrow">Wave cleared</p>
+        <h2 id="rogueRewardTitle">Choose your reward</h2>
+        <p id="rogueRewardCopy" class="editor-help"></p>
+        <div id="rogueRewardChoices" class="reward-choices"></div>
+      </section>
+    </main>
+
+    <main id="gamePage" class="app-shell" hidden>
+      <section class="board-zone" aria-label="Arena board">
+        <div class="topbar">
+          <div>
+            <a class="back-link" href="/">All the Pieces Go</a>
+            <h1 id="modeTitle">Player vs Player</h1>
+          </div>
+          <div class="controls" aria-label="Match controls">
+            <label class="mode-picker">
+              <span>Mode</span>
+              <select id="modeSelect" aria-label="Game mode"></select>
+            </label>
+            <label class="variant-picker" hidden>
+              <span>Variant</span>
+              <select id="variantSelect" aria-label="Player versus player variant"></select>
+            </label>
+            <button id="resetButton" type="button" title="Reset match">Reset</button>
+            <button id="stepButton" type="button" title="Run one bot action">Step</button>
+            <button id="autoButton" type="button" title="Toggle autoplay">Auto</button>
+          </div>
+        </div>
+
+        <div class="status-strip" aria-live="polite">
+          <div>
+            <span>Active</span>
+            <strong id="activePlayer">white</strong>
+          </div>
+          <div>
+            <span>Moves left</span>
+            <strong id="movesLeft">5</strong>
+          </div>
+          <div>
+            <span>Turn</span>
+            <strong id="turnNumber">1</strong>
+          </div>
+          <div>
+            <span>Actions</span>
+            <strong id="actionCount">0</strong>
+          </div>
+          <div>
+            <span>Status</span>
+            <strong id="modeStatus">on hold</strong>
+          </div>
+        </div>
+
+        <div class="board-frame">
+          <div id="board" class="board" role="grid" aria-label="9 by 9 board"></div>
+        </div>
+      </section>
+
+      <aside class="side-panel" aria-label="Match details">
+        <section class="panel-block">
+          <h2>Last Action</h2>
+          <p id="lastAction" class="empty-state">No actions yet.</p>
+        </section>
+
+        <section class="panel-block">
+          <h2>Pieces</h2>
+          <div class="legend">
+            <span><b>P</b> Pawn</span>
+            <span><b>R</b> Rook</span>
+            <span><b>H</b> Xiangqi Knight</span>
+            <span><b>C</b> Cannon</span>
+            <span><b>E</b> Elephant</span>
+            <span><b>V</b> Silver</span>
+            <span><b>L</b> Lance</span>
+            <span><b>J</b> Shogi Knight</span>
+            <span><b>T</b> Shogi Rook</span>
+          </div>
+        </section>
+
+        <section class="panel-block">
+          <h2>Log</h2>
+          <ol id="moveLog" class="move-log"></ol>
+        </section>
+      </aside>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

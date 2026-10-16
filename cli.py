@@ -7,7 +7,7 @@ from chess_arena_10x10.core.engine import GameEngine, discover_bots
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Run the custom 10x10 auto-chess arena.")
+    parser = argparse.ArgumentParser(description="Run the custom 9x9 auto-chess arena.")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     subparsers.add_parser("new", help="Initialize and print a fresh default game.")
@@ -70,6 +70,9 @@ def command_play(args: argparse.Namespace) -> int:
             f"active={engine.active_player} "
             f"moves_left={engine.moves_left_this_turn} turn={engine.turn_number}"
         )
+        if result.winner:
+            print(f"Game over: {result.winner} wins")
+            return 0
     return 0
 
 
@@ -86,4 +89,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Piece Almanac | All the Pieces Go</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="almanac-page">
+      <header class="almanac-header">
+        <div>
+          <a class="back-link" href="/">All the Pieces Go</a>
+          <h1>Piece Almanac</h1>
+          <p class="home-intro">Explore movement, capture mechanics, promotion, and origins.</p>
+        </div>
+        <div class="almanac-tools">
+          <label>
+            <span>Search pieces</span>
+            <input id="pieceSearch" type="search" placeholder="Search by name or game" />
+          </label>
+          <label>
+            <span>Archetype</span>
+            <select id="archetypeFilter"><option value="">All archetypes</option></select>
+          </label>
+        </div>
+      </header>
+
+      <section class="almanac-layout" aria-label="Piece almanac">
+        <div id="pieceList" class="piece-list"></div>
+        <aside class="preview-panel" aria-live="polite">
+          <div id="pieceDetail" class="piece-detail">
+            <p class="eyebrow">Movement preview</p>
+            <h2>Select a piece</h2>
+            <p class="empty-state">Choose an entry to see its representative destinations on the board.</p>
+          </div>
+          <div id="previewBoard" class="preview-board" role="grid" aria-label="Piece movement preview"></div>
+          <p class="preview-key"><span class="origin-key"></span> origin <span class="move-key"></span> legal destination <span class="capture-key"></span> capture target <span class="screen-key"></span> cannon screen <span class="blocked-key">×</span> blocked destination</p>
+        </aside>
+      </section>
+    </main>
+    <script src="/almanac.js"></script>
+  </body>
+</html>

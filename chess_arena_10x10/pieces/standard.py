@@ -10,6 +10,8 @@ Coord = Tuple[int, int]
 class Pawn(Piece):
     name = "Pawn"
     code = "P"
+    asset_family = "lichess"
+    asset_name = "P"
 
     def legal_moves(self, board: "Board", start: Coord) -> List[Coord]:
         if self.promoted:
@@ -29,12 +31,14 @@ class Pawn(Piece):
         return moves
 
     def can_promote_at(self, coord: Coord) -> bool:
-        return coord[1] == (9 if self.color == "white" else 0)
+        return coord[1] == (8 if self.color == "white" else 0)
 
 
 class Rook(Piece):
     name = "Rook"
     code = "R"
+    asset_family = "lichess"
+    asset_name = "R"
 
     def legal_moves(self, board: "Board", start: Coord) -> List[Coord]:
         return self.sliding_moves(board, start, ORTHOGONAL)
@@ -43,6 +47,8 @@ class Rook(Piece):
 class Knight(Piece):
     name = "Knight"
     code = "N"
+    asset_family = "lichess"
+    asset_name = "N"
 
     def legal_moves(self, board: "Board", start: Coord) -> List[Coord]:
         deltas = ((1, 2), (2, 1), (2, -1), (1, -2), (-1, -2), (-2, -1), (-2, 1), (-1, 2))
@@ -52,6 +58,8 @@ class Knight(Piece):
 class Bishop(Piece):
     name = "Bishop"
     code = "B"
+    asset_family = "lichess"
+    asset_name = "B"
 
     def legal_moves(self, board: "Board", start: Coord) -> List[Coord]:
         return self.sliding_moves(board, start, DIAGONAL)
@@ -60,6 +68,8 @@ class Bishop(Piece):
 class Queen(Piece):
     name = "Queen"
     code = "Q"
+    asset_family = "lichess"
+    asset_name = "Q"
 
     def legal_moves(self, board: "Board", start: Coord) -> List[Coord]:
         return self.sliding_moves(board, start, ORTHOGONAL + DIAGONAL)
@@ -68,10 +78,11 @@ class Queen(Piece):
 class King(Piece):
     name = "King"
     code = "K"
+    asset_family = "lichess"
+    asset_name = "K"
 
     def legal_moves(self, board: "Board", start: Coord) -> List[Coord]:
         return self.step_moves(board, start, KING_STEPS)
 
 
 from chess_arena_10x10.core.board import Board  # noqa: E402
-

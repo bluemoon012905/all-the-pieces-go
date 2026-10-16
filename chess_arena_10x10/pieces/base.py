@@ -14,6 +14,8 @@ class Piece:
 
     name = "Piece"
     code = "?"
+    asset_family = "letter"
+    asset_name = "piece"
     must_stay_in_palace = False
 
     @property
@@ -79,4 +81,3 @@ KING_STEPS = ORTHOGONAL + DIAGONAL
 
 
 from chess_arena_10x10.core.board import Board  # noqa: E402
-
